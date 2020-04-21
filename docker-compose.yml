@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  tomcat:
+    image: tomcatimage:1.0
+    ports: 
+      - 8080:8080
+    networks:
+      - webstack
+    container_name: tomcatcomp
+
+  db:
+    image: dbimage:1.0
+    environment:
+      - db_root_pass
+      - db_name=tododb
+      - db_user=todo
+      - db_pass
+    networks:
+      - webstack
+    container_name: dbComp
+
+networks:
+  webstack:
+    driver: bridge

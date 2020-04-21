@@ -1,0 +1,21 @@
+FROM centos:7
+
+RUN yum update -y && \
+    yum install tomcat -y && \
+    yum clean all && \
+    rm -rf /var/cache/yum
+
+RUN mkdir -p /usr/share/tomcat/webapps/ROOT
+COPY files/index.html /usr/share/tomcat/webapps/ROOT
+
+Expose 8080
+
+CMD /usr/libexec/tomcat/server start
+
+#Below is trying to test with the webapp
+#COPY files/todo-0.0.7-SNAPSHOT.war /usr/share/tomcat/webapps/
+#USER root
+#WORKDIR /usr/share/tomcat/webapps/
+#RUN unzip /usr/share/tomcat/webapps/todo-0.0.7-SNAPSHOT.war -d /usr/share/tomcat/webapps/
+#RUN rm /usr/share/tomcat/webapps/todo-0.0.7-SNAPSHOT.war
+#COPY files/application.properties /usr/share/tomcat/webapps/todo-0.0.7-SNAPSHOT/WEB-INF/classes/application.properties
