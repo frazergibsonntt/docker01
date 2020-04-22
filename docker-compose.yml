@@ -11,12 +11,17 @@ services:
     container_name: tomcatcomp
 
   db:
+#    env_file:
+#      - .env
     build: 
       context: db
       args:
-        - db_root_pass=admin123
-        - db_pass=todo123
+        - db_root_pass=${db_root_pass}
+        - db_pass={db_pass}
     image: dbimage:1.0s
+    # environment:
+    #   - db_root_pass=${db_root_pass}
+    #   - db_pass=${db_pass}
     networks:
       - webstack
     container_name: dbcomp
