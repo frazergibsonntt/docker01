@@ -2,6 +2,7 @@ version: '3'
 
 services:
   tomcat:
+    build: tomcat
     image: tomcatimage:1.0
     ports: 
       - 8080:8080
@@ -10,15 +11,15 @@ services:
     container_name: tomcatcomp
 
   db:
-    image: dbimage:1.0
-    environment:
-      - db_root_pass
-      - db_name=tododb
-      - db_user=todo
-      - db_pass
+    build: 
+      context: db
+      args:
+        - db_root_pass=admin123
+        - db_pass=todo123
+    image: dbimage:1.0s
     networks:
       - webstack
-    container_name: dbComp
+    container_name: dbcomp
 
 networks:
   webstack:

@@ -1,3 +1,4 @@
 keys/
 .vagrant
 *.log
+.env
